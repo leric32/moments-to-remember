@@ -1,0 +1,48 @@
+name: Test Build
+
+on:
+  pull_request:
+    branches: [main, staging, develop]
+  push:
+    branches: [main, staging, develop]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 'stable'
+          channel: 'stable'
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Analyze code
+        run: flutter analyze --fatal-infos
+
+      - name: Run tests
+        run: flutter test
+
+      - name: Check web build
+        run: flutter build web --release
+
+      - name: Check if deployment files exist
+        run: |
+          if [ ! -f "DEPLOYMENT.md" ]; then
+            echo "❌ DEPLOYMENT.md is missing"
+            exit 1
+          fi
+          if [ ! -f ".github/workflows/deploy.yml" ]; then
+            echo "❌ Deploy workflow is missing"
+            exit 1
+          fi
+          if [ ! -f ".firebaserc.template" ]; then
+            echo "❌ Firebase config template is missing"
+            exit 1
+          fi
+          echo "✅ All deployment files are present"
