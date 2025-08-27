@@ -43,3 +43,13 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Firebase configuration (keep templates, ignore actual config)
+.firebaserc
+firebase.json
+.firebase/
+
+# Deployment artifacts
+*.apk
+*.aab
+*.ipa

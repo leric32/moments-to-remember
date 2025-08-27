@@ -1,0 +1,25 @@
+{
+  "projects": {
+    "production": "your-production-project-id",
+    "staging": "your-staging-project-id", 
+    "development": "your-development-project-id"
+  },
+  "targets": {
+    "your-production-project-id": {
+      "hosting": {
+        "production": ["your-production-site-id"]
+      }
+    },
+    "your-staging-project-id": {
+      "hosting": {
+        "staging": ["your-staging-site-id"]
+      }
+    },
+    "your-development-project-id": {
+      "hosting": {
+        "development": ["your-development-site-id"]
+      }
+    }
+  },
+  "etags": {}
+}
